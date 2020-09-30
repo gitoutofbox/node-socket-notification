@@ -3,7 +3,12 @@ var cors = require('cors')
 var bodyParser = require('body-parser');
 const socket = require("socket.io");
 var app = express();
-app.use(express.static('app'));
+// app.use(express.static('app'));
+// app.use(express.static('/node_modules'));
+
+app.use(express.static(__dirname + 'node_modules'));
+
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors())
@@ -17,6 +22,9 @@ var server = app.listen(8081, function () {
 app.get('/', function (req, res) {
   res.sendFile( __dirname +  "/" + 'index.html' );
 });
+// app.get('/node_modules/*', function (req, res) {
+//   res.sendFile( __dirname +  "/node" + 'index.html' );
+// });
 
 
 const io = socket(server);

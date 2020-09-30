@@ -1,14 +1,42 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-<script>
-    const socket = io();
-  socket.on('new-notification', (resp) => {
-    alert(resp)
-  })
-  function sendMessage() {
-    let msg = document.getElementById('msg').value;
-    socket.emit("send-notification", msg);
-  }
-</script>
+<!doctype html>
+<html>
+  <head>
+    <title>NodeJS socket live notification demo</title>
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+  </head>
+  <body>
+ 
 
-<input type="text" id="msg" /> <button type="button" onclick="sendMessage()">Send</button>
+  <input type="text" id="msg" /> <button type="button" onclick="sendMessage()">Send</button>
+  
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script>
+      const socket = io();
+      // const toastr = toastr();
+      toastr.options = {
+        timeOut: 2000,
+        positionClass : 'toast-bottom-right',
+        extendedTimeOut: 0,
+        fadeOut: 0,
+        fadeIn: 0,
+        showDuration: 0,
+        hideDuration: 0,
+        debug: false
+    };
+    socket.on('new-notification', (resp) => {
+      toastr.success(resp, 'New notification')
+    })
+    function sendMessage() {
+      let msg = document.getElementById('msg').value;
+      if(msg.trim() !== '') {
+        socket.emit("send-notification", msg);
+      }
+      
+    }
+  </script>
+</body>
+</html>
