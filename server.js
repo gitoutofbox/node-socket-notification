@@ -3,10 +3,7 @@ var cors = require('cors')
 var bodyParser = require('body-parser');
 const socket = require("socket.io");
 var app = express();
-// app.use(express.static('app'));
-// app.use(express.static('/node_modules'));
-
-app.use(express.static(__dirname + 'node_modules'));
+app.use(express.static('assets'));
 
 
 app.use(bodyParser.json()); // support json encoded bodies
