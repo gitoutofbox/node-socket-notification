@@ -33,7 +33,8 @@ io.on("connection", function (socket) {
   });
 
   socket.on("send-notification", function (data) {
-    io.emit("new-notification", data);
+    // io.emit("new-notification", data);
+    socket.broadcast.emit("new-notification", data);
   });
 
 });
